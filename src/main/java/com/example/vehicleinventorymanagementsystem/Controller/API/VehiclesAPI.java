@@ -1,8 +1,8 @@
-package com.example.employeemanagementlist.Controller.API;
+package com.example.vehicleinventorymanagementsystem.Controller.API;
 
-import com.example.employeemanagementlist.Domain.Employee;
-import com.example.employeemanagementlist.Repository.EmployeeRepository;
-import com.example.employeemanagementlist.Service.EmployeeService;
+import com.example.vehicleinventorymanagmentsystem.Domain.Employee;
+import com.example.vehicleinventorymanagementsystem.Repository.EmployeeRepository;
+import com.example.vehicleinventorymanagementsystem.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class EmployeeAPI {
+public class VehicleAPI {
     @Autowired
     EmployeeRepository employeeRepository;
     @Autowired
