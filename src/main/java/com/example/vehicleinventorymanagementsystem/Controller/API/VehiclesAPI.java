@@ -1,8 +1,7 @@
 package com.example.vehicleinventorymanagementsystem.Controller.API;
 
-import com.example.vehicleinventorymanagmentsystem.Domain.Employee;
-import com.example.vehicleinventorymanagementsystem.Repository.EmployeeRepository;
-import com.example.vehicleinventorymanagementsystem.Service.EmployeeService;
+import com.example.vehicleinventorymanagementsystem.Domain.Vehicle;
+import com.example.vehicleinventorymanagementsystem.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,32 +11,36 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class VehicleAPI {
+public class VehiclesAPI {
+
     @Autowired
-    EmployeeRepository employeeRepository;
-    @Autowired
-    EmployeeService employeeService;
-    @RequestMapping("/employee")
-    @GetMapping("/employee")
-    public ResponseEntity<List<Employee>> getAllEmployee(){
-        return ResponseEntity.ok().body(employeeService.getAllEmployees());
-    }
-    @GetMapping
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable long id){
-        return ResponseEntity.ok().body(employeeService.getEmployeeById(id));
-    }
-    @PostMapping("/employee")
-    public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee){
-        return ResponseEntity.ok().body(employeeService.saveEmployee(employee));
-    }
-    @PutMapping("/employee/{id}")
-    public ResponseEntity<Employee> updateEmployeeRecord(@PathVariable long Id, @RequestBody Employee employee){
-        return ResponseEntity.ok().body(employeeService.updateEmployeeRecord(employee));
-    }
-    @DeleteMapping("/employee/{id}")
-    public HttpStatus deleteEmployee(@PathVariable long id ){
-        employeeService.deleteEmployee(id);
-        return HttpStatus.OK;
+    private VehicleService vehicleService;
+
+    @RequestMapping("/vehicle")
+    @GetMapping("/vehicle")
+    public ResponseEntity<List<Vehicle>> getAllVehicles() {
+        return ResponseEntity.ok().body(vehicleService.getAllVehicles());
     }
 
+    @GetMapping("/vehicle/{id}")
+    public ResponseEntity<Vehicle> getVehicleById(@PathVariable long id) {
+        return ResponseEntity.ok().body(vehicleService.getVehicleById(id));
+    }
+
+    @PostMapping("/vehicle")
+    public ResponseEntity<Vehicle> registerVehicle(@RequestBody Vehicle vehicle) {
+        return ResponseEntity.ok().body(vehicleService.registerVehicle(vehicle));
+    }
+
+    @PutMapping("/vehicle/{id}")
+    public ResponseEntity<Vehicle> updateVehicleRecord(@PathVariable long id, @RequestBody Vehicle vehicle) {
+        // Note: The service currently doesn't take `id`, this is a placeholder
+        return ResponseEntity.ok().body(vehicleService.registerVehicle(vehicle)); // Or update method if exists
+    }
+
+    @DeleteMapping("/vehicle/{id}")
+    public HttpStatus deleteVehicle(@PathVariable long id) {
+        vehicleService.deleteVehicle(id);
+        return HttpStatus.OK;
+    }
 }

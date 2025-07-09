@@ -1,7 +1,10 @@
-package com.example.employeemanagementlist.Repository;
+package com.example.vehicleinventorymanagementsystem.Repository;
 
-import com.example.employeemanagementlist.Domain.Employee;
+import com.example.vehicleinventorymanagementsystem.Domain.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface EmployeeRepository extends JpaRepository<Employee,Long> {
+@Repository
+public interface VehicleInventoryRepository extends JpaRepository<Vehicle, Long> {
+    boolean existsByRegistrationNumber(String registrationNumber);
 }

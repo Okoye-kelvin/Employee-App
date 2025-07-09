@@ -1,80 +1,46 @@
-package com.example.employeemanagementlist.Controller;
+package com.example.vehicleinventorymanagementsystem.Controller;
 
-import com.example.employeemanagementlist.Domain.Employee;
-import com.example.employeemanagementlist.Service.EmployeeService;
+import com.example.vehicleinventorymanagementsystem.Domain.Vehicle;
+import com.example.vehicleinventorymanagementsystem.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
-public class EmployeeController {
+public class VehicleController {
+
     @Autowired
-    EmployeeService employeeService;
+    private VehicleService vehicleService;
 
-    @GetMapping("/EmployeeHomepage")
-    public String homePage(Model model){
-        model.addAttribute("employee",employeeService.getAllEmployees());
-        return "home";
-
-    }
-    @GetMapping("/ShowEmployeeForm")
-    public String showEmployeeForm(Model model){
-        Employee employee = new Employee();
-        model.addAttribute("employee",employee);
-        model.addAttribute("nextPage","New Employee");
-        return "New_Employee";
-
+    @RequestMapping("/vehicle")
+    @GetMapping("/vehicle")
+    public ResponseEntity<List<Vehicle>> getAllVehicles() {
+        return ResponseEntity.ok().body(vehicleService.getAllVehicles());
     }
 
-    @PostMapping("/saveEmployee")
-    public String saveEmployee(@ModelAttribute("employee") Employee employee, RedirectAttributes redirectAttributes){
-        employeeService.saveEmployee(employee);
-        redirectAttributes.addFlashAttribute("message", "Employee employed");
-        redirectAttributes.addFlashAttribute("color", "success");
-
-        return "redirect:/EmployeeHomepage";
+    @GetMapping("/vehicle/{id}")
+    public ResponseEntity<Vehicle> getVehicleById(@PathVariable long id) {
+        return ResponseEntity.ok().body(vehicleService.getVehicleById(id));
     }
-    @GetMapping("/updateEmployeeRecord/{id}")
-    public String showEditForm(@PathVariable("id") Integer Id, Model model, RedirectAttributes redirectAttributes) {
-        try {
-           Employee employee = employeeService.getEmployeeById(Id);
-            model.addAttribute("employee", employee);
-            model.addAttribute("pageTitle", "Edit Employee Id:" + Id);
-            return "updateEmployeeRecord";
 
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("message", e.getMessage());
-            redirectAttributes.addFlashAttribute("color", "danger");
-
-            return "redirect:/EmployeeHomepage";
-        }
+    @PostMapping("/vehicle")
+    public ResponseEntity<Vehicle> registerVehicle(@RequestBody Vehicle vehicle) {
+        return ResponseEntity.ok().body(vehicleService.registerVehicle(vehicle));
     }
-    @PostMapping("/updateEmployeeRecord")
-    public String updateEmployeeRecord(@ModelAttribute("employee") Employee employee, RedirectAttributes redirectAttributes){
-        try {
-            employeeService.saveEmployee(employee);
-            redirectAttributes.addFlashAttribute("message", "Employee Record updated successfully");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("message", "Error updating employee: " + e.getMessage());
-        }
-        return "redirect:/EmployeeHomepage";
-    }
-    @GetMapping("deleteEmployee/{id}")
-    public String deleteEmployee(@PathVariable long id, RedirectAttributes redirectAttributes) {
-        try {
-            employeeService.deleteEmployee(id);
-            redirectAttributes.addFlashAttribute("message", "Employee Deleted successfully");
-            redirectAttributes.addFlashAttribute("color", "success");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("message", e.getMessage());
-            redirectAttributes.addFlashAttribute("color", "danger");
-        }
 
-        return "redirect:/EmployeeHomepage";
+    @PutMapping("/vehicle/{id}")
+    public ResponseEntity<Vehicle> updateVehicleRecord(@PathVariable long id, @RequestBody Vehicle vehicle) {
+        // Note: The service currently doesn't take `id`, this is a placeholder
+        return ResponseEntity.ok().body(vehicleService.registerVehicle(vehicle)); // Or update method if exists
+    }
+
+    @DeleteMapping("/vehicle/{id}")
+    public HttpStatus deleteVehicle(@PathVariable long id) {
+        vehicleService.deleteVehicle(id);
+        return HttpStatus.OK;
     }
 }

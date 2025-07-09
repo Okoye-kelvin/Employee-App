@@ -1,13 +1,13 @@
-package com.example.employeemanagementlist;
+package com.example.vehicleinventorymanagementsystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EmployeeManagementListApplication {
+public class VehicleManagementApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EmployeeManagementListApplication.class, args);
+        SpringApplication.run(VehicleManagementApplication.class, args);
     }
 
 }

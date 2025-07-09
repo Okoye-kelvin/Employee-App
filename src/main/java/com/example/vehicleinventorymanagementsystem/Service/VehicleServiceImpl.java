@@ -1,10 +1,7 @@
 package com.example.vehicleinventorymanagementsystem.Service;
 
-package com.example.vehiclemanagement.service.impl;
-
-import com.example.vehiclemanagement.model.Vehicle;
-import com.example.vehiclemanagement.repository.VehicleRepository;
-import com.example.vehiclemanagement.service.VehicleService;
+import com.example.vehicleinventorymanagementsystem.Domain.Vehicle;
+import com.example.vehicleinventorymanagementsystem.Repository.VehicleInventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +12,7 @@ import java.util.Optional;
 public class VehicleServiceImpl implements VehicleService {
 
     @Autowired
-    private VehicleRepository vehicleRepository;
+    private VehicleInventoryRepository vehicleRepository;
 
     @Override
     public Vehicle registerVehicle(Vehicle vehicle) {

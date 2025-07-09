@@ -1,6 +1,6 @@
 package com.example.vehicleinventorymanagementsystem.Service;
 
-import com.example.vehiclemanagementsystem.Domain.Vehicle;
+import com.example.vehicleinventorymanagementsystem.Domain.Vehicle;
 import java.util.List;
 
 public interface VehicleService {
